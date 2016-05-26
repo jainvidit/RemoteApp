@@ -1,4 +1,4 @@
-package com.haloappstudio.lightening;
+package com.haloappstudio.morld;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;
