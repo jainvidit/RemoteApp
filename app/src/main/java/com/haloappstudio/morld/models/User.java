@@ -31,12 +31,6 @@ public class User implements Parcelable{
         return mName;
     }
 
-    public User(int id, String name, String email ) {
-        this.mId = id;
-        this.mEmail = email;
-        this.mName = name;
-
-    }
     public User(Parcel parcel) {
         this.mId = parcel.readInt();
         this.mEmail = parcel.readString();
