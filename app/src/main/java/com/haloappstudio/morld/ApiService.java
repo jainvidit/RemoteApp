@@ -1,6 +1,7 @@
 package com.haloappstudio.morld;
 
 
+import com.haloappstudio.morld.models.Device;
 import com.haloappstudio.morld.models.Location;
 import com.haloappstudio.morld.models.LoginResponse;
 
@@ -23,7 +24,9 @@ public interface ApiService {
     Call<LoginResponse> login(@Field("email") String email, @Field("password") String password);
     @GET("user/{user_id}/locations")
     Call<List<Location>> locations(@Path("user_id") Integer user_id);
-    @GET("device/{device_id}/get_status")
-    Call<Integer> get_status(@Path("device_id") Integer device_id);
+    @GET("location/{location_id}/devices")
+    Call<List<Device>> devices(@Path("location_id") Integer location_id);
+    @GET("device/{device_id}/set_status/{status}")
+    Call<String> set_status(@Path("device_id") Integer device_id, @Path("status") Integer status);
 
 }

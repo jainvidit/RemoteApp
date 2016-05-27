@@ -6,4 +6,5 @@ package com.haloappstudio.morld;
 public class Utils {
     public static final String API_BASE_URL = "http://morldapp.herokuapp.com/";
     public static final String USER = "user";
+    public static final String LOCATION = "location";
 }

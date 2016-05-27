@@ -1,5 +1,6 @@
 package com.haloappstudio.morld;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -41,6 +42,9 @@ public class LocationActivity extends AppCompatActivity {
             @Override
             public void onItemClick(Location location) {
                 Log.d("TAG", location.toString());
+                Intent intent = new Intent(getApplicationContext(), DeviceActivity.class);
+                intent.putExtra(Utils.LOCATION, location);
+                startActivity(intent);
             }
         });
         mRetrofit = new Retrofit.Builder()
