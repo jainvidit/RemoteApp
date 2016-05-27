@@ -79,6 +79,7 @@ public class DeviceActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<Device>> call, Throwable t) {
+                mSwipeRefreshLayout.setRefreshing(false);
                 Log.d(TAG,"Fail");
             }
         };

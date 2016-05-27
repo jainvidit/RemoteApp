@@ -26,8 +26,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.ViewHolder> {
 
-
-
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView mTextView;
@@ -56,12 +54,11 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.ViewHolder
     }
 
     private ArrayList<Device> mDataset;
+    private final String TAG = "DeviceAdapter";
 
     public DeviceAdapter(ArrayList<Device> myDataset) {
         mDataset = myDataset;
     }
-
-
 
     @Override
     public DeviceAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -98,12 +95,12 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.ViewHolder
                 apiService.set_status(device.getmId(),status).enqueue(new Callback<String>() {
                     @Override
                     public void onResponse(Call<String> call, Response<String> response) {
-                        Log.d("Adapter",response.body());
+                        Log.d(TAG,response.body());
                     }
 
                     @Override
                     public void onFailure(Call<String> call, Throwable t) {
-                        Log.d("Adapter", "FAIL");
+                        Log.d(TAG, "FAIL");
                     }
                 });
 
