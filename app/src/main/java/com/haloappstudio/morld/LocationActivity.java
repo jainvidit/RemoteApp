@@ -37,6 +37,12 @@ public class LocationActivity extends AppCompatActivity {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
         mRecyclerView.setLayoutManager(linearLayoutManager);
         mRecyclerView.setAdapter(mLocationAdapter);
+        mLocationAdapter.setListener(new LocationAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(Location location) {
+                Log.d("TAG", location.toString());
+            }
+        });
         mRetrofit = new Retrofit.Builder()
                 .baseUrl(Utils.API_BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
