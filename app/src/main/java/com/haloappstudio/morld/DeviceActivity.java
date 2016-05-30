@@ -40,6 +40,7 @@ public class DeviceActivity extends AppCompatActivity {
         setContentView(com.haloappstudio.morld.R.layout.activity_device);
         Bundle bundle = getIntent().getExtras();
         final Location location = bundle.getParcelable(Utils.LOCATION);
+        setTitle(location.getmName());
         mRecyclerView = (RecyclerView) findViewById(R.id.list_device);
         mDeviceList = new ArrayList<>();
         mDeviceAdapter = new DeviceAdapter(mDeviceList);
