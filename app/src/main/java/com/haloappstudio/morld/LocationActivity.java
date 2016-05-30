@@ -1,16 +1,20 @@
 package com.haloappstudio.morld;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
 import com.haloappstudio.morld.adapters.LocationAdapter;
 import com.haloappstudio.morld.models.Location;
-import com.haloappstudio.morld.models.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,8 +39,10 @@ public class LocationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(com.haloappstudio.morld.R.layout.activity_location);
-        Bundle bundle = getIntent().getExtras();
-        final User user = bundle.getParcelable(Utils.USER);
+        SharedPreferences prefs = getApplicationContext()
+                .getSharedPreferences(Utils.MY_PREFS, Context.MODE_PRIVATE);
+        final int user_id = prefs.getInt(Utils.USER_ID, -1);
+        Log.d(TAG, user_id + "");
         mRecyclerView = (RecyclerView) findViewById(R.id.list_location);
         mLocationList = new ArrayList<>();
         mLocationAdapter = new LocationAdapter(mLocationList);
@@ -50,6 +56,7 @@ public class LocationActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), DeviceActivity.class);
                 intent.putExtra(Utils.LOCATION, location);
                 startActivity(intent);
+                finish();
             }
         });
         mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swiperefreshlocation);
@@ -62,7 +69,7 @@ public class LocationActivity extends AppCompatActivity {
                         // This method performs the actual data-refresh operation.
                         // The method calls setRefreshing(false) when it's finished.
                         mLocationList.clear();
-                        mApiService.locations(user.getmId()).enqueue(mCallback);
+                        mApiService.locations(user_id).enqueue(mCallback);
                     }
                 }
         );
@@ -94,6 +101,25 @@ public class LocationActivity extends AppCompatActivity {
         };
 
         // Call api to get location list
-        mApiService.locations(user.getmId()).enqueue(mCallback);
+        mApiService.locations(user_id).enqueue(mCallback);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.action_logout:
+                Utils.logout(getApplicationContext());
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }
