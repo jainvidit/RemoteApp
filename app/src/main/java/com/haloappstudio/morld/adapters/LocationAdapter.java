@@ -1,11 +1,14 @@
 package com.haloappstudio.morld.adapters;
 
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.amulyakhare.textdrawable.TextDrawable;
 import com.haloappstudio.morld.R;
 import com.haloappstudio.morld.models.Location;
 
@@ -24,6 +27,7 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView mTextView;
+        private ImageView mImageView;
 
         public TextView getmTextView() {
             return mTextView;
@@ -31,6 +35,14 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
 
         public void setmTextView(TextView mTextView) {
             this.mTextView = mTextView;
+        }
+
+        public ImageView getmImageView() {
+            return mImageView;
+        }
+
+        public void setmImageView(ImageView mImageView) {
+            this.mImageView = mImageView;
         }
 
         public ViewHolder(View view) {
@@ -48,6 +60,7 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
 
     private ArrayList<Location> mDataset;
     private OnItemClickListener mListener;
+    public static final int[] COLORS = {Color.BLUE, Color.GRAY, Color.RED, Color.MAGENTA};
 
     public LocationAdapter(ArrayList<Location> myDataset) {
         mDataset = myDataset;
@@ -66,6 +79,7 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
                 .inflate(R.layout.item_location, parent, false);
         ViewHolder viewHolder = new ViewHolder(view);
         viewHolder.setmTextView((TextView) view.findViewById(R.id.location_name));
+        viewHolder.setmImageView((ImageView) view.findViewById(R.id.location_image));
 
         return viewHolder;
     }
@@ -75,6 +89,9 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
 
         Location location = mDataset.get(position);
         holder.getmTextView().setText(location.getmName());
+        TextDrawable drawable = TextDrawable.builder()
+                .buildRound(location.getmName().substring(0,1), COLORS[position%4]);
+        holder.getmImageView().setImageDrawable(drawable);
         holder.bind(location,mListener);
     }
 

@@ -56,7 +56,6 @@ public class LocationActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), DeviceActivity.class);
                 intent.putExtra(Utils.LOCATION, location);
                 startActivity(intent);
-                finish();
             }
         });
         mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swiperefreshlocation);

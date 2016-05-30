@@ -1,13 +1,16 @@
 package com.haloappstudio.morld.adapters;
 
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import com.amulyakhare.textdrawable.TextDrawable;
 import com.haloappstudio.morld.ApiService;
 import com.haloappstudio.morld.R;
 import com.haloappstudio.morld.Utils;
@@ -29,6 +32,7 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.ViewHolder
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView mTextView;
+        private ImageView mImageView;
         private Switch mSwitch;
 
         public TextView getmTextView() {
@@ -37,6 +41,13 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.ViewHolder
 
         public void setmTextView(TextView mTextView) {
             this.mTextView = mTextView;
+        }
+        public ImageView getmImageView() {
+            return mImageView;
+        }
+
+        public void setmImageView(ImageView mImageView) {
+            this.mImageView = mImageView;
         }
 
         public Switch getmSwitch() {
@@ -55,6 +66,7 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.ViewHolder
 
     private ArrayList<Device> mDataset;
     private final String TAG = "DeviceAdapter";
+    public static final int[] COLORS = {Color.BLUE, Color.GRAY, Color.RED, Color.MAGENTA};
 
     public DeviceAdapter(ArrayList<Device> myDataset) {
         mDataset = myDataset;
@@ -68,6 +80,8 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.ViewHolder
         ViewHolder viewHolder = new ViewHolder(view);
         TextView textView = (TextView) view.findViewById(R.id.device_name);
         viewHolder.setmTextView(textView);
+        ImageView imageView = (ImageView) view.findViewById(R.id.device_image);
+        viewHolder.setmImageView(imageView);
         Switch aSwitch = (Switch) view.findViewById(R.id.device_switch);
         viewHolder.setmSwitch(aSwitch);
         return viewHolder;
@@ -78,6 +92,9 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.ViewHolder
 
         final Device device = mDataset.get(position);
         holder.getmTextView().setText(device.getmName());
+        TextDrawable drawable = TextDrawable.builder()
+                .buildRound(device.getmName().substring(0,1), COLORS[position%4]);
+        holder.getmImageView().setImageDrawable(drawable);
         holder.getmSwitch().setChecked(device.getmStatus());
         holder.getmSwitch().setOnClickListener(new View.OnClickListener() {
             @Override

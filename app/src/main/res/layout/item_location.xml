@@ -6,12 +6,24 @@
     android:clickable="true"
     android:background="?android:attr/selectableItemBackground">
 
-
-    <TextView
-        android:id="@+id/location_name"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/activity_horizontal_margin" />
+        android:padding="@dimen/activity_horizontal_margin" >
+
+        <ImageView android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_margin="5dp"
+            android:id="@+id/location_image"/>
+
+        <TextView
+            android:id="@+id/location_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/activity_horizontal_margin"
+            android:layout_gravity="center" />
+
+    </LinearLayout>
 
     <View
         android:layout_width="match_parent"
